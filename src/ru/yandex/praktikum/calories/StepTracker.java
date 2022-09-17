@@ -3,6 +3,7 @@ package ru.yandex.praktikum.calories;
 public class StepTracker {
     private final MonthData[] monthToData;
     private int goalPerDay = 10_000;
+    private static final double DAYS_IN_MONTH = 30.0;
 
     public StepTracker() {
         monthToData = new MonthData[12];
@@ -19,17 +20,18 @@ public class StepTracker {
         monthToData[month].getDaysInMonth()[day] = steps;
     }
 
-    public StringBuilder printStepsPerDay(int month) {
+    public String printStepsPerDay(int month) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < monthToData[month].getDaysInMonth().length; i++) {
+        int[] arrayOfSteps = monthToData[month].getDaysInMonth();
+        for (int i = 0; i < arrayOfSteps.length; i++) {
             stringBuilder.append(i + 1)
                     .append(" день: ")
-                    .append(monthToData[month].getDaysInMonth()[i]);
-            if (i < 29) {
+                    .append(arrayOfSteps[i]);
+            if (i < arrayOfSteps.length - 1) {
                 stringBuilder.append(", ");
             }
         }
-        return stringBuilder;
+        return String.valueOf(stringBuilder);
     }
 
     public int printStepsInMonth(int month) {
@@ -51,7 +53,7 @@ public class StepTracker {
     }
 
     public double printAverageStepsInMonth(int month) {
-        return printStepsInMonth(month) / 30.0;
+        return printStepsInMonth(month) / DAYS_IN_MONTH;
     }
 
     public int bestSeries(int month) {
@@ -70,4 +72,3 @@ public class StepTracker {
         return maxCount;
     }
 }
-
