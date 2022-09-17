@@ -31,7 +31,7 @@ public class StepTracker {
                 stringBuilder.append(", ");
             }
         }
-        return String.valueOf(stringBuilder);
+        return stringBuilder.toString();
     }
 
     public int printStepsInMonth(int month) {
@@ -57,18 +57,18 @@ public class StepTracker {
     }
 
     public int bestSeries(int month) {
-        int maxCount = 0;
-        int count = 0;
+        int bestSeries = 0;
+        int currentSeries = 0;
         for (int i = 0; i < monthToData[month].getDaysInMonth().length; i++) {
             if (monthToData[month].getDaysInMonth()[i] >= goalPerDay) {
-                count++;
+                currentSeries++;
             } else {
-                count = 0;
+                currentSeries = 0;
             }
-            if (maxCount < count) {
-                maxCount = count;
+            if (bestSeries < currentSeries) {
+                bestSeries = currentSeries;
             }
         }
-        return maxCount;
+        return bestSeries;
     }
 }
